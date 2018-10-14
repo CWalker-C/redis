@@ -85,23 +85,26 @@ void listRelease(list *list);   // 释放链表
 void listEmpty(list *list); // 判断链表是否为空
 list *listAddNodeHead(list *list, void *value); // 头插法向链表中插入结点
 list *listAddNodeTail(list *list, void *value); // 尾插法向链表中插入结点
-list *listInsertNode(list *list, listNode *old_node, void *value, int after);
-void listDelNode(list *list, listNode *node);
-listIter *listGetIterator(list *list, int direction);
-listNode *listNext(listIter *iter);
-void listReleaseIterator(listIter *iter);
-list *listDup(list *orig);
-listNode *listSearchKey(list *list, void *key);
-listNode *listIndex(list *list, long index);
-void listRewind(list *list, listIter *li);
-void listRewindTail(list *list, listIter *li);
-void listRotate(list *list);
-void listJoin(list *l, list *o);
+list *listInsertNode(list *list, listNode *old_node, void *value, int after);   // 在链表old_node 结点前/后插入新结点,当after 值为0时，在old_node 前插入新结点,
+                                                                                // 当after 值为非0时，在old_node 后插入新结点
+void listDelNode(list *list, listNode *node);   // 删除链表中的node 结点
+listIter *listGetIterator(list *list, int direction);   // 获取链表的迭代器
+listNode *listNext(listIter *iter); // 迭代器自增
+void listReleaseIterator(listIter *iter);   // 释放迭代器的内存空间
+list *listDup(list *orig);  // 拷贝链表orig
+listNode *listSearchKey(list *list, void *key); // 在链表list 中查找值与key 指向的值相同的结点地址
+                                                // 成功时返回链表中第一个与key 指向的值相同的结点的地址
+                                                // 失败时(包括未找到)则返回NULL指针
+listNode *listIndex(list *list, long index);    // 返回指向下标为index 的结点的指针
+void listRewind(list *list, listIter *li);      // 将迭代器li 绑定为链表list 的正向迭代器
+void listRewindTail(list *list, listIter *li);  // 将迭代器li 绑定为链表list 的反向迭代器
+void listRotate(list *list);    // 将链表list 的尾结点插入到头结点的后面，首结点的前面
+void listJoin(list *l, list *o);    // 将链表o 加入到链表l 后面，并将链表o 置为空链表(只含头结点)
 
 /**
  * 迭代器方向
  **/
-#define AL_START_HEAD 0
-#define AL_START_TAIL 1
+#define AL_START_HEAD 0 // 正向迭代器(从链表头部向尾部移动)
+#define AL_START_TAIL 1 // 反向迭代器(从链表尾部向头部移动)
 
 #endif /* __ADLIST_H__ */
